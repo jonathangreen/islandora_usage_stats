@@ -493,5 +493,77 @@ function islandora_usage_stats_views_default_views() {
 
   $views['usage_collection'] = $view;
 
+  $view = new view();
+  $view->name = 'usage_pdf';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'islandora_usage_stats_object_ds_access_log';
+  $view->human_name = 'Islandora PDF Downloads Report';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = 'Islandora PDF Downloads Report';
+  $handler->display->display_options['use_more'] = TRUE;
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['group_by'] = TRUE;
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['access']['perm'] = 'view islandora usage stats reports';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '30';
+  $handler->display->display_options['style_plugin'] = 'table';
+  /* Relationship: Islandora Usage Stats: Datastream */
+  $handler->display->display_options['relationships']['ds_id']['id'] = 'ds_id';
+  $handler->display->display_options['relationships']['ds_id']['table'] = 'islandora_usage_stats_object_ds_access_log';
+  $handler->display->display_options['relationships']['ds_id']['field'] = 'ds_id';
+  /* Relationship: Islandora Usage Stats: Object */
+  $handler->display->display_options['relationships']['pid_id']['id'] = 'pid_id';
+  $handler->display->display_options['relationships']['pid_id']['table'] = 'islandora_usage_stats_datastreams';
+  $handler->display->display_options['relationships']['pid_id']['field'] = 'pid_id';
+  $handler->display->display_options['relationships']['pid_id']['relationship'] = 'ds_id';
+  /* Relationship: Islandora Usage Stats: Datastream */
+  $handler->display->display_options['relationships']['ds_id_1']['id'] = 'ds_id_1';
+  $handler->display->display_options['relationships']['ds_id_1']['table'] = 'islandora_usage_stats_object_ds_access_log';
+  $handler->display->display_options['relationships']['ds_id_1']['field'] = 'ds_id';
+  /* Field: Islandora Usage Stats: Label */
+  $handler->display->display_options['fields']['label']['id'] = 'label';
+  $handler->display->display_options['fields']['label']['table'] = 'islandora_usage_stats_objects';
+  $handler->display->display_options['fields']['label']['field'] = 'label';
+  $handler->display->display_options['fields']['label']['relationship'] = 'pid_id';
+  $handler->display->display_options['fields']['label']['label'] = 'Title';
+  /* Field: Islandora Usage Stats: PID */
+  $handler->display->display_options['fields']['pid']['id'] = 'pid';
+  $handler->display->display_options['fields']['pid']['table'] = 'islandora_usage_stats_objects';
+  $handler->display->display_options['fields']['pid']['field'] = 'pid';
+  $handler->display->display_options['fields']['pid']['relationship'] = 'pid_id';
+  /* Field: COUNT(Islandora Usage Stats: DS ID) */
+  $handler->display->display_options['fields']['ds_id']['id'] = 'ds_id';
+  $handler->display->display_options['fields']['ds_id']['table'] = 'islandora_usage_stats_object_ds_access_log';
+  $handler->display->display_options['fields']['ds_id']['field'] = 'ds_id';
+  $handler->display->display_options['fields']['ds_id']['group_type'] = 'count';
+  $handler->display->display_options['fields']['ds_id']['label'] = 'Downloads';
+  /* Filter criterion: Islandora Usage Stats: DS Type */
+  $handler->display->display_options['filters']['dsid']['id'] = 'dsid';
+  $handler->display->display_options['filters']['dsid']['table'] = 'islandora_usage_stats_datastreams';
+  $handler->display->display_options['filters']['dsid']['field'] = 'dsid';
+  $handler->display->display_options['filters']['dsid']['relationship'] = 'ds_id';
+  $handler->display->display_options['filters']['dsid']['value'] = 'PDF';
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page');
+  $handler->display->display_options['path'] = 'admin/reports/islandora_pdf_downloads_report';
+  $handler->display->display_options['menu']['type'] = 'normal';
+  $handler->display->display_options['menu']['title'] = 'Islandora PDF Downloads Report';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
+
+  $views['usage_pdf'] = $view;
+
   return $views;
 }
