@@ -1,5 +1,12 @@
 <?php
+/**
+ * @file
+ * Views integration.
+ */
 
+/**
+ * Implements hook_views_data().
+ */
 function islandora_usage_stats_views_data() {
   $data = array();
   $data['islandora_usage_stats_objects'] = array(
