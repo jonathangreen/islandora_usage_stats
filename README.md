@@ -56,7 +56,6 @@ Work based on code from https://github.com/roblib/islandora_scholar_upei and the
 
 Current maintainers:
 
-* [William Panting](https://github.com/willtp87)
 * [Bryan Brown](https://github.com/bryjbrown)
 
 Sponsors:
