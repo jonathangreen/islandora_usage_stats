@@ -47,7 +47,7 @@ function islandora_usage_stats_log_object_view(AbstractObject $object) {
         try {
           $collection_id = islandora_usage_stats_get_pid_id($collection);
           islandora_usage_stats_collection_view_to_db($object_access_id, $collection_id);
-          module_invoke_all('islandora_usage_stats_access_recorded', 'collection', $collection_id);
+          module_invoke_all('islandora_usage_stats_access_recorded', 'parent_collection', $collection_id);
         }
         catch (Exception $e) {
           watchdog_exception(
