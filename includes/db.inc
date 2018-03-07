@@ -340,7 +340,7 @@ function islandora_usage_stats_object_view_to_db($pid_id, $request_time = NULL, 
  * Write a content model view to the DB.
  */
 function islandora_usage_stats_content_model_view_to_db($object_access_id, $model_id) {
-  db_insert('islandora_usage_stats_content_model_access_log')->fields(array(
+  return db_insert('islandora_usage_stats_content_model_access_log')->fields(array(
     'object_access_id' => $object_access_id,
     'content_model' => $model_id,
   ))->execute();
@@ -350,7 +350,7 @@ function islandora_usage_stats_content_model_view_to_db($object_access_id, $mode
  * Write a collection view to the DB.
  */
 function islandora_usage_stats_collection_view_to_db($object_access_id, $collection_id) {
-  db_insert('islandora_usage_stats_collection_access_log')->fields(array(
+  return db_insert('islandora_usage_stats_collection_access_log')->fields(array(
     'object_access_id' => $object_access_id,
     'collection' => $collection_id,
   ))->execute();
@@ -375,7 +375,7 @@ function islandora_usage_stats_collection_view_to_db($object_access_id, $collect
  */
 function islandora_usage_stats_datastream_download_to_db($ds_id, $request_time = NULL, $ip_address = NULL, $uid = NULL) {
   global $user;
-  db_insert('islandora_usage_stats_object_ds_access_log')->fields(array(
+  return db_insert('islandora_usage_stats_object_ds_access_log')->fields(array(
     'ds_id' => $ds_id,
     'time' => ($request_time !== NULL) ? $request_time : REQUEST_TIME,
     'ip' => ($ip_address !== NULL) ? $ip_address : ip_address(),
