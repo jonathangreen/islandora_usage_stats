@@ -67,7 +67,7 @@ function hook_islandora_usage_stats_datastream_download_recorded($download_id, $
  * @param string $pid
  *   The PID of the object that was accessed.
  */
-function hook_islandora_usage_stats_cmodel_access_recorded($access_id, $cmodel_id, $cmodel_pid, $pid);
+function hook_islandora_usage_stats_cmodel_access_recorded($access_id, $cmodel_id, $cmodel_pid, $pid) {
 
 }
 
@@ -84,6 +84,6 @@ function hook_islandora_usage_stats_cmodel_access_recorded($access_id, $cmodel_i
  * @param string $pid
  *   The PID of the object that was accessed.
  */
-function hook_islandora_usage_stats_cmodel_pid_access_recorded($access_id, $cmodel_pid, $cmodel_id, $pid);
+function hook_islandora_usage_stats_cmodel_pid_access_recorded($access_id, $cmodel_pid, $cmodel_id, $pid) {
 
 }
