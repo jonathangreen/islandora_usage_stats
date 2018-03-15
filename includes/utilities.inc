@@ -20,12 +20,17 @@ function islandora_usage_stats_log_object_view(AbstractObject $object) {
       $pid_id = islandora_usage_stats_get_pid_id($object->id);
       $object_access_id = islandora_usage_stats_object_view_to_db($pid_id);
 
+      module_invoke_all('islandora_usage_stats_object_access_recorded', $object_access_id, $pid_id, $object->id);
+
       // Log content models.
       foreach ($object->models as $model) {
         if ($model != 'fedora-system:FedoraObject-3.0') {
           try {
             $model_id = islandora_usage_stats_get_pid_id($model);
-            islandora_usage_stats_content_model_view_to_db($object_access_id, $model_id);
+            $model_access_id = islandora_usage_stats_content_model_view_to_db($object_access_id, $model_id);
+            module_invoke_all('islandora_usage_stats_cmodel_access_recorded', $model_access_id, $model_id, $model, $object->id);
+            $model_for_hook_name = preg_replace('/:/', '_', strtolower($model));
+            module_invoke_all('islandora_usage_stats_' . $model_for_hook_name . '_access_recorded', $model_access_id, $model_id, $model, $object->id);
           }
           catch (Exception $e) {
             watchdog_exception(
@@ -43,7 +48,8 @@ function islandora_usage_stats_log_object_view(AbstractObject $object) {
       foreach ($collections as $collection) {
         try {
           $collection_id = islandora_usage_stats_get_pid_id($collection);
-          islandora_usage_stats_collection_view_to_db($object_access_id, $collection_id);
+          $collection_access_id = islandora_usage_stats_collection_view_to_db($object_access_id, $collection_id);
+          module_invoke_all('islandora_usage_stats_collection_access_recorded', $collection_access_id, $collection_id, $collection, $object_access_id, $object->id);
         }
         catch (Exception $e) {
           watchdog_exception(
@@ -73,7 +79,8 @@ function islandora_usage_stats_log_datastream_download($pid, $dsid) {
       module_load_include('inc', 'islandora_usage_stats', 'includes/db');
       islandora_usage_stats_log_object_view(islandora_object_load($pid));
       $ds_dsid = islandora_usage_stats_get_ds_dsid($pid, $dsid);
-      islandora_usage_stats_datastream_download_to_db($ds_dsid);
+      $datastream_download_id = islandora_usage_stats_datastream_download_to_db($ds_dsid);
+      module_invoke_all('islandora_usage_stats_datastream_download_recorded', $datastream_download_id, $ds_dsid, $pid, $dsid);
       islandora_usage_stats_session_datastream_last_viewed_time($pid, $dsid, REQUEST_TIME);
     }
   }
