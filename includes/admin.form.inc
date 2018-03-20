@@ -26,7 +26,7 @@ function islandora_usage_stats_admin_form() {
 
   $form['usage']['islandora_usage_stats_ip_list'] = array(
     '#type' => 'textarea',
-    '#description' => t('Add IPs separated by spaces'),
+    '#description' => t('Add IPs or CIDR ranges separated by spaces'),
     '#default_value' => variable_get('islandora_usage_stats_ip_list', 'localhost 127.0.0.1'),
   );
 
