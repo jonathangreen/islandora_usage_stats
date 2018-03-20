@@ -21,7 +21,7 @@ function islandora_usage_stats_admin_form() {
   $form['usage'] = array(
     '#type' => 'fieldset',
     '#title' => t('Omit IPs'),
-    '#description' => t('Add IP addresses and <a target="_blank" href="@cidr-link">CIDR ranges</a> that you want to omit from usage tracking', 
+    '#description' => t('Add IP addresses and <a target="_blank" href="@cidr-link">CIDR ranges</a> that you want to omit from usage tracking',
       array(
         '@cidr-link' => 'https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing',
       )

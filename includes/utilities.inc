@@ -121,7 +121,7 @@ function islandora_usage_stats_should_not_log() {
   // Check if user's IP is excluded.
   foreach ($ignored_ips as $ignored_ip) {
 
-    // Is user's IP directly on the IP exclusion list? 
+    // Is user's IP directly on the IP exclusion list?
     if ($ip == $ignored_ip) {
       return TRUE;
     }
@@ -138,7 +138,7 @@ function islandora_usage_stats_should_not_log() {
       if ($ip_ip_net == $net_long) {
         return TRUE;
       }
-    } 
+    }
   }
 
   // Bots check here.
