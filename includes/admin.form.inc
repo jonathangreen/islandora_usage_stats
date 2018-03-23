@@ -49,6 +49,7 @@ function islandora_usage_stats_admin_form() {
     '#title' => t('Bot Exclusion Regex'),
     '#description' => t('The regular expression used to filter out bots'),
     '#default_value' => variable_get('islandora_usage_stats_exclude_bots_regex', '/bot|rambler|spider|crawl|slurp|curl|^$/i'),
+    '#maxlength' => 256,
   );
 
   $form['clear'] = array(
