@@ -21,12 +21,20 @@ function islandora_usage_stats_admin_form() {
   $form['usage'] = array(
     '#type' => 'fieldset',
     '#title' => t('Omit IPs'),
-    '#description' => t('Add IP addresses that you want to omit from usage tracking'),
+    '#description' => t('Add IP addresses and <a target="_blank" href="@cidr-link">CIDR ranges</a> that you want to omit from usage tracking',
+      array(
+        '@cidr-link' => 'https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing',
+      )
+    ),
   );
 
   $form['usage']['islandora_usage_stats_ip_list'] = array(
     '#type' => 'textarea',
-    '#description' => t('Add IPs separated by spaces'),
+    '#description' => t('Add IPs or <a target="_blank" href="@cidr-link">CIDR ranges</a> separated by spaces',
+      array(
+        '@cidr-link' => 'https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing',
+      )
+    ),
     '#default_value' => variable_get('islandora_usage_stats_ip_list', 'localhost 127.0.0.1'),
   );
 

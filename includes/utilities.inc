@@ -115,13 +115,32 @@ function islandora_usage_stats_track_search_term($term) {
  *   TRUE if excluded from tracking, FALSE otherwise.
  */
 function islandora_usage_stats_should_not_log() {
-  $ip_list = explode(' ', variable_get('islandora_usage_stats_ip_list', 'localhost 127.0.0.1'));
+  $ignored_ips = explode(' ', variable_get('islandora_usage_stats_ip_list', 'localhost 127.0.0.1'));
   $ip = ip_address();
 
   // Check if user's IP is excluded.
-  if (in_array($ip, $ip_list)) {
-    return TRUE;
+  foreach ($ignored_ips as $ignored_ip) {
+
+    // Is user's IP directly on the IP exclusion list?
+    if ($ip == $ignored_ip) {
+      return TRUE;
+    }
+
+    // Is entry in IP exclusion list actually a CIDR range?
+    elseif (strpos($ignored_ip, "/")) {
+      list($net, $mask) = explode("/", $ignored_ip);
+      $net_long = ip2long($net);
+      $ip_mask = ~((1 << (32 - $mask)) - 1);
+      $ip_long = ip2long($ip);
+      $ip_ip_net = $ip_long & $ip_mask;
+
+      // Does user's IP fall into this CIDR range?
+      if ($ip_ip_net == $net_long) {
+        return TRUE;
+      }
+    }
   }
+
   // Bots check here.
   if (variable_get('islandora_usage_stats_exclude_bots', 1)) {
     // @todo: make agent regex configurable.
