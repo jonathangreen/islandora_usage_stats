@@ -13,6 +13,7 @@ function islandora_usage_stats_uninstall() {
     'islandora_usage_stats_ip_list',
     'islandora_usage_stats_cooldown_seconds',
     'islandora_usage_stats_exclude_bots',
+    'islandora_usage_stats_exclude_bots_regex',
     'islandora_usage_stats_top_downloads_block_display_rows',
     'islandora_usage_stats_top_search_block_display_rows',
   );

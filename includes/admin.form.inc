@@ -52,6 +52,14 @@ function islandora_usage_stats_admin_form() {
     '#default_value' => variable_get('islandora_usage_stats_exclude_bots', '1'),
   );
 
+  $form['usage']['islandora_usage_stats_exclude_bots_regex'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Bot Exclusion Regex'),
+    '#description' => t('The regular expression used to filter out bots'),
+    '#default_value' => variable_get('islandora_usage_stats_exclude_bots_regex', '/bot|rambler|spider|crawl|slurp|curl|^$/i'),
+    '#maxlength' => 256,
+  );
+
   $form['clear'] = array(
     '#type' => 'fieldset',
     '#title' => t('Clear values'),
@@ -186,6 +194,7 @@ function islandora_usage_stats_admin_form_submit($form, &$form_state) {
       variable_set('islandora_usage_stats_ip_list', $form_state['values']['islandora_usage_stats_ip_list']);
       variable_set('islandora_usage_stats_cooldown_seconds', $form_state['values']['islandora_usage_stats_cooldown_seconds']);
       variable_set('islandora_usage_stats_exclude_bots', $form_state['values']['islandora_usage_stats_exclude_bots']);
+      variable_set('islandora_usage_stats_exclude_bots_regex', $form_state['values']['islandora_usage_stats_exclude_bots_regex']);
       drupal_set_message(
         t("The configuration options have been saved.")
       );
