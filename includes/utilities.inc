@@ -142,7 +142,7 @@ function islandora_usage_stats_should_not_log() {
   }
 
   // Bots check here.
-  if (variable_get('islandora_usage_stats_exclude_bots', 1)) {
+  if (variable_get('islandora_usage_stats_exclude_bots', 1) && isset($_SERVER['HTTP_USER_AGENT'])) {
     $bot_regex = variable_get('islandora_usage_stats_exclude_bots_regex', '/bot|rambler|spider|crawl|slurp|curl|^$/i');
     if (1 === preg_match($bot_regex, $_SERVER['HTTP_USER_AGENT'])) {
       return TRUE;
